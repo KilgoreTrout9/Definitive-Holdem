@@ -9,7 +9,6 @@ const User = ({ users, setUsers, userCount, setUserCount }) => {
 
   const handleUserSubmit = (event) => {
     event.preventDefault();
-    alert('The new user is: ' + currentUser);
     setUserCount(userCount += 1);
     setUsers([...users, currentUser])
     setCurrentUser('')
@@ -17,6 +16,7 @@ const User = ({ users, setUsers, userCount, setUserCount }) => {
 
   const handleRemoveUser = (name) => {
     setUsers(users.filter((user) => user !== name))
+    setUserCount(userCount -= 1);
   }
 
   return (
@@ -33,11 +33,11 @@ const User = ({ users, setUsers, userCount, setUserCount }) => {
       <span>Number of Players: {userCount}</span>
       <ul>
         {userCount > 0 &&
-          users.map((name) => (
-            <li>
-              <span>{name}   </span>
-              <button onClick={() => handleRemoveUser(name)}>remove</button>
-            </li>
+          users.map((name, ind) => (
+            <ul key={ind}>
+              <button onClick={() => handleRemoveUser(name)}>X</button>
+              <span>   {name}   </span>
+            </ul>
           ))
         }
       </ul>
